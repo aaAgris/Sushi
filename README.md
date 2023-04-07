@@ -5,8 +5,8 @@ Programma, kura ļauj lietotājam izveidot savu sushi pasūtījumu.
 Izveido savu sushi projekts
 - [x] Uzsākts projekts
 - [x] Pārslēgšanās starp sadaļām
-- [x] Izveidota sākuma izvēlnes sadaļā
-- [x] Izveidota pasūtījuma veidošanas sadaļā
+- [x] Izveidota sākuma izvēlnes sadaļa
+- [x] Izveidota pasūtījuma veidošanas sadaļa
 - [x] Izveidota populārāko sushi kombināciju sadaļa
 - [x] Izveidota maksājuma sadaļa
 - [x] Pasūtījuma sadaļas sastāvdaļas
