@@ -1,33 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public class incri1 : MonoBehaviour
+{
 
+    public Text resultText;
+    public Button subtractButton;
+    public Button addButton;
 
-public class incri1 : MonoBehaviour{
-    private Text score;
-    private int scoreAmount;
+    private int value = 0;
 
     void Start()
     {
-        scoreAmount = 1;
-        score=GetComponent<Text>();
-
+        UpdateText();
     }
 
-    private void Update(){
-      score.text=scoreAmount.ToString();
-    }
-
-   
-    public void SubtractScore()
+    public void Add()
     {
-        scoreAmount -=1;
+        value = int.Parse(resultText.text) + 1;
+        UpdateText();
     }
 
-    public void IncriseScore()
+    public void Subtract()
     {
-        scoreAmount +=1;
+        value = int.Parse(resultText.text) - 1;
+        UpdateText();
+    }
+
+    private void UpdateText()
+    {
+        value = Mathf.Clamp(value, 0, 110);
+        resultText.text = value.ToString();
+        subtractButton.interactable = (value > 0);
+        addButton.interactable = (value < 110);
     }
 }
+

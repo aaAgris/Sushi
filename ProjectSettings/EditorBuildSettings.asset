@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PopSushi.unity
     guid: 218eae22a37769f4e8f9c5805f7d57ef
+  - enabled: 1
+    path: Assets/Scenes/MaksasLogs.unity
+    guid: 3f49340f68100d74eb66b2a6b06afc67
   m_configObjects: {}
