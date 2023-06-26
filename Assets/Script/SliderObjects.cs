@@ -23,6 +23,7 @@ public class SliderObjects : MonoBehaviour
     public GameObject avocado;
     public GameObject cucumber;
 
+
     private void Start()
     {
         // Initialize slider value to 1
