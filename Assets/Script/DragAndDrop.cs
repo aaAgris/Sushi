@@ -2,36 +2,25 @@ using UnityEngine;
 
 public class DragAndDrop : MonoBehaviour
 {
-    private Camera mainCamera;
     private bool isDragging = false;
     private Vector3 initialPosition;
     private Vector3 mouseOffset;
-    private Rigidbody2D rb;
-    private SpringJoint2D springJoint;
+    private bool isDroppedOnDish = false;
+    private GameObject dish;
 
     private void Awake()
     {
-        mainCamera = Camera.main;
-        rb = GetComponent<Rigidbody2D>();
-        rb.bodyType = RigidbodyType2D.Kinematic;
-
-        springJoint = GetComponent<SpringJoint2D>();
-        springJoint.enabled = false;
+        // Assign the dish object here or through the Inspector
+        dish = GameObject.Find("dish"); // Replace "dish" with the actual name of the dish object
     }
 
     private void OnMouseDown()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            // Store the initial position and calculate the offset from the mouse position
+            isDragging = true;
             initialPosition = transform.position;
             mouseOffset = transform.position - GetMouseWorldPosition();
-
-            // Set isDragging to true
-            isDragging = true;
-
-            // Enable the SpringJoint2D component
-            springJoint.enabled = true;
         }
     }
 
@@ -39,11 +28,7 @@ public class DragAndDrop : MonoBehaviour
     {
         if (isDragging)
         {
-            // Update the object's position based on the mouse position
             transform.position = GetMouseWorldPosition() + mouseOffset;
-
-            // Update the target position of the SpringJoint2D to the current position
-            springJoint.connectedAnchor = transform.position;
         }
     }
 
@@ -51,26 +36,17 @@ public class DragAndDrop : MonoBehaviour
     {
         if (isDragging)
         {
-            // Set isDragging to false and perform any necessary logic upon dropping the object
             isDragging = false;
 
-            // Disable the SpringJoint2D component
-            springJoint.enabled = false;
-
-            // Restore Rigidbody2D properties
-            rb.bodyType = RigidbodyType2D.Dynamic;
-
-            // Add your code here to handle dropping the object, such as snapping it to a target position or checking for correct placement
-            // Example:
-            if (transform.position.y < 0f)
+            // Perform any necessary logic upon dropping the object
+            // For example, check if it's dropped on the target object (dish object)
+            if (IsDroppedOnDish())
             {
-                // Object dropped in an invalid position, snap it back to the initial position
-                transform.position = initialPosition;
+                isDroppedOnDish = true;
             }
             else
             {
-                // Object dropped in a valid position, perform any necessary actions
-                // ...
+                transform.position = initialPosition;
             }
         }
     }
@@ -78,7 +54,25 @@ public class DragAndDrop : MonoBehaviour
     private Vector3 GetMouseWorldPosition()
     {
         Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = -mainCamera.transform.position.z;
-        return mainCamera.ScreenToWorldPoint(mousePosition);
+        mousePosition.z = -Camera.main.transform.position.z;
+        return Camera.main.ScreenToWorldPoint(mousePosition);
+    }
+
+    private bool IsDroppedOnDish()
+    {
+        if (dish != null)
+        {
+            Collider2D dishCollider = dish.GetComponent<Collider2D>();
+            if (dishCollider != null)
+            {
+                Collider2D draggableCollider = GetComponent<Collider2D>();
+                if (draggableCollider != null)
+                {
+                    return draggableCollider.IsTouching(dishCollider);
+                }
+            }
+        }
+
+        return false;
     }
 }
