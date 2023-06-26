@@ -46,7 +46,7 @@ public class incri1 : MonoBehaviour
     public Button addButton;
     private PriceManager priceManager; // Reference to the PriceManager script
 
-    private int value = 0;
+    private int value = 1;
 
     void Start()
     {
@@ -78,9 +78,9 @@ public class incri1 : MonoBehaviour
 
     private void UpdateText()
     {
-        value = Mathf.Clamp(value, 0, 110);
+        value = Mathf.Clamp(value, 1, 110);
         resultText.text = value.ToString();
-        subtractButton.interactable = (value > 0);
+        subtractButton.interactable = (value > 1);
         addButton.interactable = (value < 110);
     }
 }

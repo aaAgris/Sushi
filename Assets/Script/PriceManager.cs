@@ -3,9 +3,28 @@ using UnityEngine.UI;
 
 public class PriceManager : MonoBehaviour
 {
-    public Text priceField;
-    private float totalPrice = 0f;
+    public static PriceManager Instance { get; private set; }
 
+    public Text priceField;
+    public float totalPrice { get; private set; }
+
+<<<<<<< Updated upstream
+=======
+
+    private void Awake()
+    {
+        // Ensure only one instance of PriceManager exists
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+>>>>>>> Stashed changes
     private void Start()
     {
         UpdatePrice();
@@ -23,3 +42,4 @@ public class PriceManager : MonoBehaviour
         priceField.text = "Price: " + totalPrice.ToString("0.00") + " EUR";
     }
 }
+
