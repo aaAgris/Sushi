@@ -7,6 +7,9 @@ public class maksatLogs : MonoBehaviour
 {
     public void maksaLogs()
     {
+        // Update the price before transitioning to the next scene
+        PriceManager.Instance.UpdatePrice();
+
         SceneManager.LoadScene(4);
     }
 }

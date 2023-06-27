@@ -10,13 +10,11 @@ public class galaCena : MonoBehaviour
         if (PriceManager.Instance != null)
         {
             float totalPrice = PriceManager.Instance.totalPrice;
-            totalPriceText.text = "Gala cena: "+totalPrice.ToString("0.00") + " EUR";
+            totalPriceText.text = "Gala cena: " + totalPrice.ToString("0.00") + " EUR";
         }
         else
         {
             Debug.LogError("PriceManager instance not found.");
         }
     }
-
-    // Other MaksasLogs code...
 }

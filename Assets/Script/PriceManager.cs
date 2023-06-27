@@ -8,12 +8,8 @@ public class PriceManager : MonoBehaviour
     public Text priceField;
     public float totalPrice { get; private set; }
 
-<<<<<<< Updated upstream
-=======
-
     private void Awake()
     {
-        // Ensure only one instance of PriceManager exists
         if (Instance == null)
         {
             Instance = this;
@@ -24,7 +20,7 @@ public class PriceManager : MonoBehaviour
         }
     }
 
->>>>>>> Stashed changes
+
     private void Start()
     {
         UpdatePrice();
@@ -36,10 +32,54 @@ public class PriceManager : MonoBehaviour
         UpdatePrice();
     }
 
-    private void UpdatePrice()
+    public void UpdatePrice()
     {
-        totalPrice = Mathf.Max(totalPrice, 0f); // Ensure the price doesn't go below zero
-        priceField.text = "Price: " + totalPrice.ToString("0.00") + " EUR";
+        totalPrice = Mathf.Max(totalPrice, 0f);
+
+        int discountPercentage = GetDiscountPercentage();
+
+        float discountedPrice = totalPrice - (totalPrice * (discountPercentage / 100f));
+        priceField.text = "Cena: " + discountedPrice.ToString("0.00") + " EUR";
+    }
+
+    private int GetDiscountPercentage()
+    {
+        int value = FindObjectOfType<incri1>().GetValue();
+        int discountPercentage = 0;
+
+        if (value >= 10 && value < 20)
+        {
+            discountPercentage = 10;
+        }
+        else if (value >= 20 && value < 30)
+        {
+            discountPercentage = 15;
+        }
+        else if (value >= 30 && value < 40)
+        {
+            discountPercentage = 20;
+        }
+        else if (value >= 40 && value < 50)
+        {
+            discountPercentage = 30;
+        }
+        else if (value >= 50 && value < 60)
+        {
+            discountPercentage = 45;
+        }
+        else if (value >= 60 && value < 70)
+        {
+            discountPercentage = 50;
+        }
+        else if (value >= 70 && value < 80)
+        {
+            discountPercentage = 60;
+        }
+        else if (value >= 80)
+        {
+            discountPercentage = 70;
+        }
+
+        return discountPercentage;
     }
 }
-

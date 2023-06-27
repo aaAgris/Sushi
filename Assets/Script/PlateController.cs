@@ -6,20 +6,24 @@ public class PlateController : MonoBehaviour
     private List<DragDrop> ingredients = new List<DragDrop>();
     private PriceManager priceManager;
     private Vector3 ingredientScale;
+    private SliderObjects sliderObjects; // Reference to the SliderObjects script
 
     private void Start()
     {
         priceManager = FindObjectOfType<PriceManager>();
+        sliderObjects = FindObjectOfType<SliderObjects>(); // Assign the reference to the SliderObjects script
     }
 
     public void AddIngredient(DragDrop ingredient)
     {
         ingredient.transform.SetParent(transform, false); // Attach the ingredient to the plate
 
-        // Update the ingredient's position and scale on the plate
-        ingredient.transform.localPosition = Vector3.zero;
-        ingredientScale = ingredient.transform.localScale;
-        ingredient.transform.localScale = ingredientScale * 0.8f; // Adjust the size as desired
+        // Calculate the offset based on the ingredient count
+        int ingredientCount = ingredients.Count;
+        float offsetX = ingredientCount * 0.3f; // Adjust the offset as desired
+
+        // Update the ingredient's position on the plate
+        ingredient.transform.localPosition = new Vector3(offsetX, 0f, 0f);
 
         ingredients.Add(ingredient); // Add the ingredient to the list
 
@@ -45,6 +49,13 @@ public class PlateController : MonoBehaviour
             if (priceManager != null)
             {
                 priceManager.AddPrice(-1f);
+            }
+
+            // Call the method to update the ingredient visibility based on the slider value
+            if (sliderObjects != null)
+            {
+
+
             }
         }
     }

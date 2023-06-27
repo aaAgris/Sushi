@@ -35,7 +35,6 @@ public class incri1 : MonoBehaviour
         addButton.interactable = (value < 110);
     }
 }*/
-
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -76,6 +75,11 @@ public class incri1 : MonoBehaviour
         }
     }
 
+    public int GetValue()
+    {
+        return value;
+    }
+
     private void UpdateText()
     {
         value = Mathf.Clamp(value, 1, 110);
@@ -84,5 +88,6 @@ public class incri1 : MonoBehaviour
         addButton.interactable = (value < 110);
     }
 }
+
 
 

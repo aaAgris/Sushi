@@ -23,6 +23,8 @@ public class SliderObjects : MonoBehaviour
     public GameObject avocado;
     public GameObject cucumber;
 
+    public GameObject plate;
+    public PlateController plateController;
 
     private void Start()
     {
@@ -40,21 +42,21 @@ public class SliderObjects : MonoBehaviour
         UpdateTextField();
     }
 
-    private void UpdateObjects()
+    public void UpdateObjects()
     {
         switch (sliderValue)
         {
             case 1:
-                HideObjects(shrimp, carrot, crab, onion, salmon, chicken, avocado, cucumber);
                 ShowObjects(rice, sauce, wrap, ginger, wasabi);
+                HideObjects(shrimp, crab, salmon, chicken, carrot, onion, avocado, cucumber);
                 break;
             case 2:
-                HideObjects(rice, sauce, wrap, ginger, wasabi, carrot, onion, avocado, cucumber);
                 ShowObjects(shrimp, crab, salmon, chicken);
+                HideObjects(rice, sauce, wrap, ginger, wasabi, carrot, onion, avocado, cucumber);
                 break;
             case 3:
-                HideObjects(rice, sauce, wrap, ginger, wasabi, shrimp, crab, salmon, chicken);
                 ShowObjects(carrot, onion, avocado, cucumber);
+                HideObjects(rice, sauce, wrap, ginger, wasabi, shrimp, crab, salmon, chicken);
                 break;
         }
     }
@@ -63,7 +65,36 @@ public class SliderObjects : MonoBehaviour
     {
         foreach (GameObject obj in objectsToHide)
         {
-            obj.SetActive(false);
+            if (IsIngredientInHiddenCategory(obj) && obj.transform.parent != plate.transform)
+            {
+                obj.SetActive(false);
+            }
+        }
+    }
+
+    private bool IsIngredientInHiddenCategory(GameObject ingredient)
+    {
+        // Modify this method based on your ingredient categorization logic
+        switch (ingredient.name)
+        {
+            case "rice":
+            case "sauce":
+            case "wrap":
+            case "ginger":
+            case "wasabi":
+                return sliderValue != 1;
+            case "shrimp":
+            case "crab":
+            case "salmon":
+            case "chicken":
+                return sliderValue != 2;
+            case "carrot":
+            case "onion":
+            case "avocado":
+            case "cucumber":
+                return sliderValue != 3;
+            default:
+                return false;
         }
     }
 
